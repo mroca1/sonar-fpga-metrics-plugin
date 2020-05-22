@@ -19,8 +19,8 @@ package org.linty.plugins.fpgametrics;
 
 import java.util.Arrays;
 
-import org.linty.plugins.fpgametrics.measures.ImportedMetrics;
-import org.linty.plugins.fpgametrics.measures.SetSizeOnFilesSensor;
+import org.linty.plugins.fpgametrics.measures.MetricsImporter;
+import org.linty.plugins.fpgametrics.measures.MeasuresImporter;
 import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
 
@@ -39,7 +39,7 @@ public class MetricsPlugin implements Plugin {
 
     // tutorial on measures
     context
-      .addExtensions(ImportedMetrics.class, SetSizeOnFilesSensor.class/*, ComputeSizeAverage.class, ComputeSizeRating.class*/);
+      .addExtensions(MetricsImporter.class, MeasuresImporter.class/*, ComputeSizeAverage.class, ComputeSizeRating.class*/);
 
     context.addExtensions(Arrays.asList(
       PropertyDefinition.builder("sonar.metrics.path")

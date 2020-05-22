@@ -32,7 +32,7 @@ public class ComputeSizeAverage implements MeasureComputer {
   @Override
   public MeasureComputerDefinition define(MeasureComputerDefinitionContext def) {
     return def.newDefinitionBuilder()
-      .setOutputMetrics(ImportedMetrics.jsonMetrics.metrics().keySet().toArray(new String[ImportedMetrics.jsonMetrics.metrics().size()]))
+      .setOutputMetrics(MetricsImporter.jsonMetrics.metrics().keySet().toArray(new String[MetricsImporter.jsonMetrics.metrics().size()]))
       .build();
   }
 

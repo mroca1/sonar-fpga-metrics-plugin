@@ -21,7 +21,7 @@ import org.sonar.api.ce.measure.Measure;
 import org.sonar.api.ce.measure.MeasureComputer;
 
 /**
- * Rating is computed from value of metric {@link ImportedMetrics#FILENAME_SIZE}.
+ * Rating is computed from value of metric {@link MetricsImporter#FILENAME_SIZE}.
  */
 public class ComputeSizeRating implements MeasureComputer {
 

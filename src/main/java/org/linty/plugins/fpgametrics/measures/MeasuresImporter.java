@@ -35,12 +35,7 @@ import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 
 
-/**
- * Scanner feeds raw measures on files but must not aggregate values to directories and project.
- * This class emulates loading of file measures from a 3rd-party analyser.
- */
-
-public class SetSizeOnFilesSensor implements ProjectSensor {
+public class MeasuresImporter implements ProjectSensor {
 
 
 	@Override
@@ -62,7 +57,7 @@ public class SetSizeOnFilesSensor implements ProjectSensor {
 			//e.printStackTrace();
 		}
 
-			for(Metric metric:ImportedMetrics.getMetricsResult) {
+			for(Metric metric:MetricsImporter.getMetricsResult) {
 				
 				 FileSystem fs = context.fileSystem();
 				    // only "main" files, but not "tests"

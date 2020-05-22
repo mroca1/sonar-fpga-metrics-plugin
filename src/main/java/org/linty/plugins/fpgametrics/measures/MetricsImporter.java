@@ -57,18 +57,33 @@ class JsonMetric {
 		return qualitative;
 	}
 	
+	public String getDomain() {
+		return domain;
+	}
+
+	public Double getWorstValue() {
+		return worstValue;
+	}
+
+	public Double getBestValue() {
+		return bestValue;
+	}
+
 	private String name;
 	private String type;
 	private String description;
+	private String domain;
+	private Double worstValue;
+	private Double bestValue;
 	private boolean qualitative;
 	  
 	}
 
-public class ImportedMetrics implements Metrics {
+public class MetricsImporter implements Metrics {
 	
 	private Configuration configuration;
 	
-	public ImportedMetrics(Configuration configuration) {
+	public MetricsImporter(Configuration configuration) {
 		this.configuration=configuration;
 	}
 
@@ -103,13 +118,15 @@ public static List<Metric> getMetricsResult;
 		        	    .setDescription(((JsonMetric)me.getValue()).getDescription())
 		        	    .setDirection(Metric.DIRECTION_BETTER)
 		        	    .setQualitative(((JsonMetric)me.getValue()).isQualitative())
-		        	    .setDomain("custom")
+		        	    .setDomain(((JsonMetric)me.getValue()).getDomain())
+		        	    .setWorstValue(((JsonMetric)me.getValue()).getWorstValue())
+		        	    .setBestValue(((JsonMetric)me.getValue()).getBestValue())	    
 		        	    .create());
 		  }
 	      
 	    } catch (FileNotFoundException e) {
-	      System.out.println("An error occurred.");
-	      e.printStackTrace();
+	      System.out.println("Cannot find custom metrics JSON file");
+	      //e.printStackTrace();
 	    }
 	getMetricsResult=metrics;
     return metrics;
