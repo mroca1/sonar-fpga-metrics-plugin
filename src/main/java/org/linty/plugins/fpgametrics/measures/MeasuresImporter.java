@@ -40,7 +40,7 @@ public class MeasuresImporter implements ProjectSensor {
 
 	@Override
 	public void describe(SensorDescriptor descriptor) {
-		descriptor.name("Compute size of file names");
+		descriptor.name("Import measures from Json files");
 	}
 
 	@Override
@@ -55,6 +55,7 @@ public class MeasuresImporter implements ProjectSensor {
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
+			System.out.println("No measures report found in this project directory");
 		}
 
 			for(Metric metric:MetricsImporter.getMetricsResult) {

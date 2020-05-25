@@ -23,7 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
+import org.linty.plugins.fpgametrics.gsonData.JsonMetric;
+import org.linty.plugins.fpgametrics.gsonData.JsonMetrics;
 import org.sonar.api.config.Configuration;
 //import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Metric;
@@ -36,48 +37,6 @@ import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-class JsonMetrics {
-    private Map<String, JsonMetric> metrics;
-    public Map<String, JsonMetric> metrics(){
-    	return metrics;
-    }
-}
-
-class JsonMetric {
-	  public String getName() {
-		return name;
-	}
-	public String getType() {
-		return type;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public boolean isQualitative() {
-		return qualitative;
-	}
-	
-	public String getDomain() {
-		return domain;
-	}
-
-	public Double getWorstValue() {
-		return worstValue;
-	}
-
-	public Double getBestValue() {
-		return bestValue;
-	}
-
-	private String name;
-	private String type;
-	private String description;
-	private String domain;
-	private Double worstValue;
-	private Double bestValue;
-	private boolean qualitative;
-	  
-	}
 
 public class MetricsImporter implements Metrics {
 	
@@ -86,20 +45,6 @@ public class MetricsImporter implements Metrics {
 	public MetricsImporter(Configuration configuration) {
 		this.configuration=configuration;
 	}
-
-  /*public static final Metric<Integer> FILENAME_SIZE = new Metric.Builder("filename_size", "Filename Size", Metric.ValueType.INT)
-    .setDescription("Number of characters of file names")
-    .setDirection(Metric.DIRECTION_BETTER)
-    .setQualitative(false)
-    .setDomain(CoreMetrics.DOMAIN_GENERAL)
-    .create();
-
-  public static final Metric<Integer> FILENAME_SIZE_RATING = new Metric.Builder("filename_size_rating", "Filename Size Rating", Metric.ValueType.RATING)
-    .setDescription("Rating based on size of file names")
-    .setDirection(Metric.DIRECTION_BETTER)
-    .setQualitative(true)
-    .setDomain(CoreMetrics.DOMAIN_GENERAL)
-    .create();*/
   
 public static JsonMetrics jsonMetrics;
 public static List<Metric> getMetricsResult;
@@ -113,14 +58,15 @@ public static List<Metric> getMetricsResult;
 	      jsonMetrics = gson.fromJson(new FileReader(configuration.get("sonar.metrics.path").orElse("C:\\Program Files\\sonarqube-7.9.3\\metrics.json")), JsonMetrics.class);
 	      Iterator it = jsonMetrics.metrics().entrySet().iterator();
 		  while(it.hasNext()) {
-			  Map.Entry me = (Map.Entry)it.next();
+			  Map.Entry me = (Map.Entry)it.next();			
 			  metrics.add(new Metric.Builder((String) me.getKey(), ((JsonMetric)me.getValue()).getName(), ValueType.valueOf(((JsonMetric)me.getValue()).getType()))
-		        	    .setDescription(((JsonMetric)me.getValue()).getDescription())
-		        	    .setDirection(Metric.DIRECTION_BETTER)
+					    .setDescription(((JsonMetric)me.getValue()).getDescription())
+		        	    .setDirection(((JsonMetric)me.getValue()).getDirection())
 		        	    .setQualitative(((JsonMetric)me.getValue()).isQualitative())
 		        	    .setDomain(((JsonMetric)me.getValue()).getDomain())
 		        	    .setWorstValue(((JsonMetric)me.getValue()).getWorstValue())
-		        	    .setBestValue(((JsonMetric)me.getValue()).getBestValue())	    
+		        	     .setBestValue(((JsonMetric)me.getValue()).getBestValue())
+		        	    .setOptimizedBestValue(((JsonMetric)me.getValue()).isOptimizedBestValue())
 		        	    .create());
 		  }
 	      
