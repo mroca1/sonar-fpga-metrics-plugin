@@ -11,6 +11,11 @@ public class JsonMetric {
 	private boolean qualitative;
 	private int direction;
 	private boolean optimizedBestValue;
+	private boolean userManaged;
+	private boolean enabled;
+	private boolean hidden;
+	private boolean deleteHistoricalData;
+	private int decimalScale;
 	  
 	public String getName() {
 		return name;
@@ -43,5 +48,21 @@ public class JsonMetric {
 	public int getDirection() {
 		return direction;
 	}
+	public boolean isUserManaged() {
+		return userManaged;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public boolean isHidden() {
+		return hidden;
+	}
+	public boolean isDeleteHistoricalData() {
+		return deleteHistoricalData;
+	}
+	public int getDecimalScale() {
+		return decimalScale;
+	}
+
 	  
 }

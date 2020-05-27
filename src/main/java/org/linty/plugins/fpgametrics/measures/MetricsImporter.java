@@ -65,8 +65,12 @@ public static List<Metric> getMetricsResult;
 		        	    .setQualitative(((JsonMetric)me.getValue()).isQualitative())
 		        	    .setDomain(((JsonMetric)me.getValue()).getDomain())
 		        	    .setWorstValue(((JsonMetric)me.getValue()).getWorstValue())
-		        	     .setBestValue(((JsonMetric)me.getValue()).getBestValue())
+		        	    .setBestValue(((JsonMetric)me.getValue()).getBestValue())
 		        	    .setOptimizedBestValue(((JsonMetric)me.getValue()).isOptimizedBestValue())
+		        	    .setDecimalScale(((JsonMetric)me.getValue()).getDecimalScale())
+		        	    .setDeleteHistoricalData(((JsonMetric)me.getValue()).isDeleteHistoricalData())
+		        	    .setHidden(((JsonMetric)me.getValue()).isHidden())
+		        	    .setUserManaged(((JsonMetric)me.getValue()).isUserManaged())
 		        	    .create());
 		  }
 	      

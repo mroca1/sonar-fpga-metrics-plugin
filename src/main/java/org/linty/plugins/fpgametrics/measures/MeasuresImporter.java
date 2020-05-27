@@ -45,7 +45,6 @@ public class MeasuresImporter implements ProjectSensor {
 
 	@Override
 	public void execute(SensorContext context) {
-
 	
 
 		Gson gson = new Gson();
@@ -97,9 +96,6 @@ public class MeasuresImporter implements ProjectSensor {
 							case "DATA":
 								context.newMeasure().forMetric(metric).on(file).withValue((String) rawValue_file).save();
 								break;
-							case "LEVEL":
-								//context.addMeasure((String)me.getKey(), (Metric.Level.class) ((JsonMetric)me.getValue()).getValue());
-								break;
 							case "DISTRIB":
 								context.newMeasure().forMetric(metric).on(file).withValue((String) rawValue_file).save();
 								break;
@@ -114,7 +110,7 @@ public class MeasuresImporter implements ProjectSensor {
 							}
 					  }
 				    }
-				
+				    
 				Object rawValue = measures.get(metric.getKey());
 				if (rawValue!=null) {
 					String valueTypeStr = metric.getType().name();//ExampleMetrics.measures.metrics().get(metric.getKey()).getType();
@@ -140,9 +136,6 @@ public class MeasuresImporter implements ProjectSensor {
 					case "DATA":
 						context.newMeasure().forMetric(metric).on(context.project()).withValue((String) rawValue).save();
 						break;
-					case "LEVEL":
-						//context.addMeasure((String)me.getKey(), (Metric.Level.class) ((JsonMetric)me.getValue()).getValue());
-						break;
 					case "DISTRIB":
 						context.newMeasure().forMetric(metric).on(context.project()).withValue((String) rawValue).save();
 						break;
@@ -157,7 +150,8 @@ public class MeasuresImporter implements ProjectSensor {
 					}
 				}
 			}
-		
+					
 
 	}
+	
 }
