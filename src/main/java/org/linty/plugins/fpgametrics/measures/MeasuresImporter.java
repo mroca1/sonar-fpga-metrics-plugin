@@ -30,6 +30,7 @@ import com.google.gson.JsonSyntaxException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
@@ -71,39 +72,56 @@ public class MeasuresImporter implements ProjectSensor {
 							// TODO Auto-generated catch block
 							//e.printStackTrace();
 						}
-					  Object rawValue_file = measures_file.get(metric.getKey());
-					  if (rawValue_file!=null) {
+						
+					  Object rawValue = measures_file.get(metric.getKey());
+					  Double ratioMax = null;
+					  if(rawValue!=null&&rawValue.getClass().isArray()) {
+							if (((ArrayList) rawValue).size()==2) {
+								ratioMax=(Double) ((ArrayList) rawValue).get(1);
+								rawValue=((ArrayList) rawValue).get(0);
+							}else {						
+								rawValue=null;
+							}
+						}
+					  
+					  if (rawValue!=null) {
 						  String valueTypeStr = metric.getType().name();//ExampleMetrics.measures.metrics().get(metric.getKey()).getType();
 							switch (valueTypeStr) {
 							case "INT":
-								context.newMeasure().forMetric(metric).on(file).withValue((int)Math.round((Double) rawValue_file)).save();
+								context.newMeasure().forMetric(metric).on(file).withValue((int)Math.round((Double) rawValue)).save();
 								break;
 							case "FLOAT":
-								context.newMeasure().forMetric(metric).on(file).withValue((Double) rawValue_file).save();
+								if(ratioMax==null)
+									context.newMeasure().forMetric(metric).on(context.project()).withValue((Double) rawValue).save();
+								else
+									context.newMeasure().forMetric(metric).on(context.project()).withValue(((Double) rawValue)/ratioMax).save();
 								break;
 							case "PERCENT":
-								context.newMeasure().forMetric(metric).on(file).withValue((Double) rawValue_file).save();
+								if(ratioMax==null)
+									context.newMeasure().forMetric(metric).on(context.project()).withValue((Double) rawValue).save();
+								else
+									context.newMeasure().forMetric(metric).on(context.project()).withValue(((Double) rawValue)*100.0/ratioMax).save();
 								break;
 							case "BOOL":
-								context.newMeasure().forMetric(metric).on(file).withValue((Boolean) rawValue_file).save();
+								context.newMeasure().forMetric(metric).on(file).withValue((Boolean) rawValue).save();
 								break;
 							case "STRING":
-								context.newMeasure().forMetric(metric).on(file).withValue((String) rawValue_file).save();
+								context.newMeasure().forMetric(metric).on(file).withValue((String) rawValue).save();
 								break;
 							case "MILLISEC":
-								context.newMeasure().forMetric(metric).on(file).withValue((Long)Math.round((Double) rawValue_file)).save();
+								context.newMeasure().forMetric(metric).on(file).withValue((Long)Math.round((Double) rawValue)).save();
 								break;
 							case "DATA":
-								context.newMeasure().forMetric(metric).on(file).withValue((String) rawValue_file).save();
+								context.newMeasure().forMetric(metric).on(file).withValue((String) rawValue).save();
 								break;
 							case "DISTRIB":
-								context.newMeasure().forMetric(metric).on(file).withValue((String) rawValue_file).save();
+								context.newMeasure().forMetric(metric).on(file).withValue((String) rawValue).save();
 								break;
 							case "RATING":
-								context.newMeasure().forMetric(metric).on(file).withValue((int)Math.round((Double) rawValue_file)).save();
+								context.newMeasure().forMetric(metric).on(file).withValue((int)Math.round((Double) rawValue)).save();
 								break;
 							case "WORK_DUR":
-								context.newMeasure().forMetric(metric).on(file).withValue((Long)Math.round((Double) rawValue_file)).save();
+								context.newMeasure().forMetric(metric).on(file).withValue((Long)Math.round((Double) rawValue)).save();
 								break;
 							default:
 								;
@@ -112,6 +130,15 @@ public class MeasuresImporter implements ProjectSensor {
 				    }
 				    
 				Object rawValue = measures.get(metric.getKey());
+				Double ratioMax = null;
+				if(rawValue!=null&&rawValue.getClass().equals(ArrayList.class)) {
+					if (((ArrayList) rawValue).size()==2) {
+						ratioMax=(Double) ((ArrayList) rawValue).get(1);
+						rawValue=((ArrayList) rawValue).get(0);
+					}else {						
+						rawValue=null;
+					}
+				}
 				if (rawValue!=null) {
 					String valueTypeStr = metric.getType().name();//ExampleMetrics.measures.metrics().get(metric.getKey()).getType();
 					switch (valueTypeStr) {
@@ -119,10 +146,16 @@ public class MeasuresImporter implements ProjectSensor {
 						context.newMeasure().forMetric(metric).on(context.project()).withValue((int)Math.round((Double) rawValue)).save();
 						break;
 					case "FLOAT":
-						context.newMeasure().forMetric(metric).on(context.project()).withValue((Double) rawValue).save();
+						if(ratioMax==null)
+							context.newMeasure().forMetric(metric).on(context.project()).withValue((Double) rawValue).save();
+						else
+							context.newMeasure().forMetric(metric).on(context.project()).withValue(((Double) rawValue)/ratioMax).save();
 						break;
 					case "PERCENT":
-						context.newMeasure().forMetric(metric).on(context.project()).withValue((Double) rawValue).save();
+						if(ratioMax==null)
+							context.newMeasure().forMetric(metric).on(context.project()).withValue((Double) rawValue).save();
+						else
+							context.newMeasure().forMetric(metric).on(context.project()).withValue(((Double) rawValue)*100.0/ratioMax).save();
 						break;
 					case "BOOL":
 						context.newMeasure().forMetric(metric).on(context.project()).withValue((Boolean) rawValue).save();

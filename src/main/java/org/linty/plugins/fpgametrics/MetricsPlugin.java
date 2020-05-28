@@ -43,8 +43,8 @@ public class MetricsPlugin implements Plugin {
       PropertyDefinition.builder("sonar.metrics.path")
         .name("Custom metrics file path")
         .description("Absolute path for custom metrics JSON file")
-        .category("Sonar custom metrics")
-        .defaultValue("C:\\Program Files\\sonarqube-7.9.3\\metrics.json")
+        .category("Sonar fpga metrics")
+        .defaultValue("C:\\Program Files\\sonarqube-7.9.3\\format-metrics.json")
         .build()));
   }
 }
