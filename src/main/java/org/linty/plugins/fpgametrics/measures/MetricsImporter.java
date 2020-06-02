@@ -46,8 +46,15 @@ public class MetricsImporter implements Metrics {
 		this.configuration=configuration;
 	}
   
-public static JsonMetrics jsonMetrics;
-public static List<Metric> getMetricsResult;
+private static JsonMetrics jsonMetrics;
+private static List<Metric> metricsResult;
+
+public static JsonMetrics getJsonMetrics() {
+	return jsonMetrics;
+}
+public static List<Metric> getMetricsResult(){
+	return metricsResult;
+}
 
   @Override
   public List<Metric> getMetrics() {
@@ -78,7 +85,7 @@ public static List<Metric> getMetricsResult;
 	      System.out.println("Cannot find custom metrics JSON file");
 	      //e.printStackTrace();
 	    }
-	getMetricsResult=metrics;
+	metricsResult=metrics;
     return metrics;
   }
 }

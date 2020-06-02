@@ -28,15 +28,32 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+
+import org.sonar.api.config.Configuration;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 
 
 public class MeasuresImporter implements ProjectSensor {
+	
+	private List<Metric> metrics=null;
+	
+	
+	 public MeasuresImporter(Configuration configuration) {
+	        this(MetricsImporter.getMetricsResult(), configuration);
+	    }
+	 
+	 /**
+     * For testing purpose only
+     */
+	public MeasuresImporter(List<Metric> metrics, Configuration configuration) {
+        this.metrics = metrics;
+    }
 
 
 	@Override
@@ -47,7 +64,8 @@ public class MeasuresImporter implements ProjectSensor {
 	@Override
 	public void execute(SensorContext context) {
 	
-
+		if(metrics==null)
+			metrics=MetricsImporter.getMetricsResult();
 		Gson gson = new Gson();
 		Map<String,Object> measures = new HashMap<String,Object>();
 		try {
@@ -58,7 +76,7 @@ public class MeasuresImporter implements ProjectSensor {
 			System.out.println("No measures report found in this project directory");
 		}
 
-			for(Metric metric:MetricsImporter.getMetricsResult) {
+			for(Metric metric:metrics) {
 				
 				 FileSystem fs = context.fileSystem();
 				    // only "main" files, but not "tests"

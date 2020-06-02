@@ -38,15 +38,15 @@ public class ComputeSizeRating implements MeasureComputer {
   }
 
   @Override
-  public void compute(MeasureComputerContext context) {
-    Measure size = null;//context.getMeasure(FILENAME_SIZE.key());
+  public void compute(MeasureComputerContext context) {/*
+    context.getMeasure(FILENAME_SIZE.key());
     if (size != null) {
       // rating values are currently implemented as integers in API
       int rating = RATING_A;
       if (size.getIntValue() > THRESHOLD) {
         rating = RATING_B;
       }
-      //context.addMeasure(FILENAME_SIZE_RATING.key(), rating);
-    }
+      context.addMeasure(FILENAME_SIZE_RATING.key(), rating);
+    }*/
   }
 }

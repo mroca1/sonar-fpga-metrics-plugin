@@ -1,0 +1,6 @@
+{
+	"float_metric": 80,
+	"int_metric": 10,
+	"string_metric": "hello"
+
+}
