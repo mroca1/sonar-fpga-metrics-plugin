@@ -1,0 +1,21 @@
+{
+	"metrics": {
+		"float_metric": {
+			"name": "float_metric",
+			"type": "FLOAT",
+			"description":"metric 1 description",
+			"qualitative":true,
+			"userManaged":true
+		},
+		"int_metric": {
+			"name": "int_metric",
+			"type": "INT",
+			"hidden":true
+		},
+		"string_metric": {
+			"name": "string_metric",
+			"type": "STRING",
+			"qualitative":true
+		}
+	}
+}

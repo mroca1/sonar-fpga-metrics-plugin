@@ -62,7 +62,7 @@ public static List<Metric> getMetricsResult(){
 	  try {
 		  //System.out.println("Working Directory = " + System.getProperty("user.dir"));
 	      Gson gson = new Gson();
-	      jsonMetrics = gson.fromJson(new FileReader(configuration.get("sonar.metrics.path").orElse("C:\\Program Files\\sonarqube-7.9.3\\metrics.json")), JsonMetrics.class);
+	      jsonMetrics = gson.fromJson(new FileReader(configuration.get("sonar.metrics.path").orElse("C:\\Program Files\\sonarqube-7.9.3\\format-metrics.json")), JsonMetrics.class);
 	      Iterator it = jsonMetrics.metrics().entrySet().iterator();
 		  while(it.hasNext()) {
 			  Map.Entry me = (Map.Entry)it.next();			

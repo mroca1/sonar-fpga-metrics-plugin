@@ -43,16 +43,18 @@ public class MeasuresImporter implements ProjectSensor {
 	
 	private List<Metric> metrics=null;
 	
+	//For testing only
+	private String basePath="";
+	
 	
 	 public MeasuresImporter(Configuration configuration) {
-	        this(MetricsImporter.getMetricsResult(), configuration);
+	        this(MetricsImporter.getMetricsResult(),"");
 	    }
 	 
-	 /**
-     * For testing purpose only
-     */
-	public MeasuresImporter(List<Metric> metrics, Configuration configuration) {
+	//For testing only
+	public MeasuresImporter(List<Metric> metrics, String basePath) {
         this.metrics = metrics;
+        this.basePath=basePath;
     }
 
 
@@ -69,7 +71,7 @@ public class MeasuresImporter implements ProjectSensor {
 		Gson gson = new Gson();
 		Map<String,Object> measures = new HashMap<String,Object>();
 		try {
-			measures = gson.fromJson(new FileReader("measures.json"), measures.getClass());
+			measures = gson.fromJson(new FileReader(basePath+"measures.json"), measures.getClass());
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();

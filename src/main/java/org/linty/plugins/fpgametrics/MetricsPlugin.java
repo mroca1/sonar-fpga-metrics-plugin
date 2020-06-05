@@ -37,7 +37,7 @@ public class MetricsPlugin implements Plugin {
   @Override
   public void define(Context context) {
 
-    context.addExtensions(MetricsImporter.class, MeasuresImporter.class/*, ComputeSizeRating.class*/);
+    context.addExtensions(MetricsImporter.class, MeasuresImporter.class);
 
     context.addExtensions(Arrays.asList(
       PropertyDefinition.builder("sonar.metrics.path")

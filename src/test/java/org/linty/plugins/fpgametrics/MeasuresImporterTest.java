@@ -7,7 +7,6 @@ import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.batch.sensor.measure.Measure;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.measures.Metric.ValueType;
-import org.sonar.api.config.internal.MapSettings;
 
 import java.io.File;
 import java.util.Arrays;
@@ -23,7 +22,7 @@ public class MeasuresImporterTest {
     public void execute_WithMatchingPattern_ExpectValueRegistered() throws Exception {
         final SensorContextTester contextTester = SensorContextTester.create(new File(BASE_DIR));
 
-        final MeasuresImporter mesuresImporter = new MeasuresImporter(Arrays.asList(FLOAT_METRIC, INT_METRIC, STRING_METRIC),new  MapSettings().asConfig());
+        final MeasuresImporter mesuresImporter = new MeasuresImporter(Arrays.asList(FLOAT_METRIC, INT_METRIC, STRING_METRIC),"src\\test\\files\\");
         mesuresImporter.execute(contextTester);
 
         final Measure<Double> floatMeasure = contextTester.measure(contextTester.module().key(), FLOAT_METRIC.key());
