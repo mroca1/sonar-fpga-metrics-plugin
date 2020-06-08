@@ -69,7 +69,7 @@ public class MeasuresImporter implements ProjectSensor {
 		if(metrics==null)
 			metrics=MetricsImporter.getMetricsResult();
 		Gson gson = new Gson();
-		Map<String,Object> measures = new HashMap<String,Object>();
+		Map<String,Object> measures = new HashMap<>();
 		try {
 			measures = gson.fromJson(new FileReader(basePath+"measures.json"), measures.getClass());
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
@@ -84,16 +84,16 @@ public class MeasuresImporter implements ProjectSensor {
 				    // only "main" files, but not "tests"
 				    Iterable<InputFile> files = fs.inputFiles(fs.predicates().hasType(InputFile.Type.MAIN));
 				    for (InputFile file : files) {
-				    	Gson gson_file = new Gson();
-						Map<String,Object> measures_file = new HashMap<String,Object>();
+				    	Gson gsonFile = new Gson();
+						Map<String,Object> measuresFile = new HashMap<>();
 						try {
-							measures_file = gson_file.fromJson(new FileReader(FilenameUtils.removeExtension(file.absolutePath())+"_measures.json"), measures_file.getClass());
+							measuresFile = gsonFile.fromJson(new FileReader(FilenameUtils.removeExtension(file.absolutePath())+"_measures.json"), measuresFile.getClass());
 						} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 							// TODO Auto-generated catch block
 							//e.printStackTrace();
 						}
 						
-					  Object rawValue = measures_file.get(metric.getKey());
+					  Object rawValue = measuresFile.get(metric.getKey());
 					  Double ratioMax = null;
 					  if(rawValue!=null&&rawValue.getClass().isArray()) {
 							if (((ArrayList) rawValue).size()==2) {
@@ -160,7 +160,7 @@ public class MeasuresImporter implements ProjectSensor {
 					}
 				}
 				if (rawValue!=null) {
-					String valueTypeStr = metric.getType().name();//ExampleMetrics.measures.metrics().get(metric.getKey()).getType();
+					String valueTypeStr = metric.getType().name();
 					switch (valueTypeStr) {
 					case "INT":
 						context.newMeasure().forMetric(metric).on(context.project()).withValue((int)Math.round((Double) rawValue)).save();

@@ -23,10 +23,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.linty.plugins.fpgametrics.gsonData.JsonMetric;
-import org.linty.plugins.fpgametrics.gsonData.JsonMetrics;
+import org.linty.plugins.fpgametrics.gsondata.JsonMetric;
+import org.linty.plugins.fpgametrics.gsondata.JsonMetrics;
 import org.sonar.api.config.Configuration;
-//import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.measures.Metrics;
 import org.sonar.api.measures.Metric.ValueType;

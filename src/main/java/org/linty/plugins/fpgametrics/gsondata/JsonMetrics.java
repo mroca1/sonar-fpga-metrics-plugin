@@ -1,4 +1,4 @@
-package org.linty.plugins.fpgametrics.gsonData;
+package org.linty.plugins.fpgametrics.gsondata;
 
 import java.util.Map;
 
