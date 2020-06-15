@@ -1,6 +1,16 @@
 {
 	"float_metric": 80,
 	"int_metric": 10,
-	"string_metric": "hello"
+	"string_metric": "hello",
+	"Metric4": [30, 100],
+	"Metric5": [400, 1000],
+	"Metric6": 70,
+	"Metric7": 20,
+	"Metric8": "value",
+	"Metric9": "value",
+	"Metric10": 6,
+	"Metric11": 55.5,
+	"Metric12": true,
+	"Metric_WrongValue": [400, 1000,78]
 
 }

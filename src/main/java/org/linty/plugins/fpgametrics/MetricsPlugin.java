@@ -32,9 +32,12 @@ import org.sonar.api.config.PropertyDefinition;
 
 public class MetricsPlugin implements Plugin {
 	
+//For testing only
+  public MetricsPlugin() {
+		super();
+	}
 
-
-  @Override
+@Override
   public void define(Context context) {
 
     context.addExtensions(MetricsImporter.class, MeasuresImporter.class);

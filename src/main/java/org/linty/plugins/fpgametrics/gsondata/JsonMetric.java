@@ -30,7 +30,6 @@ public class JsonMetric {
 	private int direction;
 	private boolean optimizedBestValue;
 	private boolean userManaged;
-	private boolean enabled;
 	private boolean hidden;
 	private boolean deleteHistoricalData;
 	private int decimalScale;
@@ -68,9 +67,6 @@ public class JsonMetric {
 	}
 	public boolean isUserManaged() {
 		return userManaged;
-	}
-	public boolean isEnabled() {
-		return enabled;
 	}
 	public boolean isHidden() {
 		return hidden;

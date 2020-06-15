@@ -75,9 +75,9 @@ public class MeasuresImporter implements ProjectSensor {
 		} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("No measures report found in this project directory");
+			System.out.println("No measures report found in this project directory :"+basePath+"measures.json");
 		}
-
+		if(metrics!=null) {
 			for(Metric metric:metrics) {
 				
 				 FileSystem fs = context.fileSystem();
@@ -143,8 +143,6 @@ public class MeasuresImporter implements ProjectSensor {
 							case "WORK_DUR":
 								context.newMeasure().forMetric(metric).on(file).withValue((Long)Math.round((Double) rawValue)).save();
 								break;
-							default:
-								;
 							}
 					  }
 				    }
@@ -198,12 +196,10 @@ public class MeasuresImporter implements ProjectSensor {
 					case "WORK_DUR":
 						context.newMeasure().forMetric(metric).on(context.project()).withValue((Long)Math.round((Double) rawValue)).save();
 						break;
-					default:
-						;
 					}
 				}
 			}
-					
+		}
 
 	}
 	

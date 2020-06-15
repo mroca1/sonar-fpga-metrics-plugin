@@ -63,8 +63,11 @@ public static List<Metric> getMetricsResult(){
 	      Gson gson = new Gson();
 	      jsonMetrics = gson.fromJson(new FileReader(configuration.get("sonar.metrics.path").orElse("C:\\Program Files\\sonarqube-7.9.3\\format-metrics.json")), JsonMetrics.class);
 	      Iterator it = jsonMetrics.metrics().entrySet().iterator();
+	      int cnt=0;
 		  while(it.hasNext()) {
-			  Map.Entry me = (Map.Entry)it.next();			
+			  cnt++;
+			  Map.Entry me = (Map.Entry)it.next();
+			  try {
 			  metrics.add(new Metric.Builder((String) me.getKey(), ((JsonMetric)me.getValue()).getName(), ValueType.valueOf(((JsonMetric)me.getValue()).getType()))
 					    .setDescription(((JsonMetric)me.getValue()).getDescription())
 		        	    .setDirection(((JsonMetric)me.getValue()).getDirection())
@@ -78,6 +81,9 @@ public static List<Metric> getMetricsResult(){
 		        	    .setHidden(((JsonMetric)me.getValue()).isHidden())
 		        	    .setUserManaged(((JsonMetric)me.getValue()).isUserManaged())
 		        	    .create());
+			  }catch (Exception e) {
+				  System.out.println("Metric number "+cnt+" in order of declaration has beeen ignored since it is not correctly formatted.");
+			  }
 		  }
 	      
 	    } catch (FileNotFoundException e) {
